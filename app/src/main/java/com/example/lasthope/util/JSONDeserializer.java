@@ -16,9 +16,9 @@ import com.example.lasthope.util.Mathematics;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class JSONdeserializer {
+public class JSONDeserializer {
 
-    JSONdeserializer() {}
+    public JSONDeserializer() {}
 
     public Vehicle getVehicle(int vehicleNumber, String json) {
         json = json.substring(json.indexOf('['), json.indexOf(']')+1);
@@ -40,17 +40,17 @@ public class JSONdeserializer {
         return delays;
     }
 
-    public Stop getNearestStop(Location currLocation, String json) {
+    public Stop getNearestStop(double lat, double lon, String json) {
         Gson gson = new Gson();
         Mathematics mat = new Mathematics();
         Type stopsType = new TypeToken<List<Stop>>(){}.getType();
         List<Stop> stops = gson.fromJson(json, stopsType);
         double tempDistance;
-        double currDistance = mat.distance(currLocation.getLatitude(), currLocation.getLongitude(), stops.get(0).getStopLat(), stops.get(0).getStopLon());
+        double currDistance = mat.distance(lat, lon, stops.get(0).getStopLat(), stops.get(0).getStopLon());
         int NearrestStopId = 0;
         int iterator = 1;
         do {
-            tempDistance = mat.distance(currLocation.getLatitude(), currLocation.getLongitude(), stops.get(iterator).getStopLat(), stops.get(iterator).getStopLon());
+            tempDistance = mat.distance(lat, lon, stops.get(iterator).getStopLat(), stops.get(iterator).getStopLon());
             if (currDistance > tempDistance) {currDistance = tempDistance; NearrestStopId = stops.get(iterator).getStopId();}
             iterator++;
         }

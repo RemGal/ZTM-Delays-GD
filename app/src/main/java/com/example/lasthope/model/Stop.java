@@ -5,7 +5,7 @@ public class Stop {
     //        boolean stopCode;
 //        String stopName;
 //        String stopShortName;
-//        String stopDesc;
+    private String stopDesc;
 //        String subName;
 //        String date;
     private double stopLat;
@@ -25,10 +25,14 @@ public class Stop {
 //        String activationDate;
 
     public void setStopId(int stopId) { this.stopId = stopId; }
+    public void setStopDesc(String stopDesc) { this.stopDesc = stopDesc; }
     public void setStopLat(double stopLat) { this.stopLat = stopLat; }
     public void setStopLon(double stopLon) { this.stopLon = stopLon; }
 
     public int getStopId() { return stopId; }
+    public String getStopDesc() {
+        return stopDesc;
+    }
     public double getStopLat() {
         return stopLat;
     }
