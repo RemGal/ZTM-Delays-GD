@@ -18,6 +18,7 @@ import java.util.List;
 
 public class JSONDeserializer {
 
+
     public JSONDeserializer() {}
 
     public Vehicle getVehicle(int vehicleNumber, String json) {
@@ -32,7 +33,7 @@ public class JSONDeserializer {
         return vehicles.get(indexOfVehicle);
     }
 
-    public List<Delay> getDelays(Context ctx, String json) {
+    public List<Delay> getDelays(String json) {
         json = json.substring(json.indexOf('['), json.indexOf(']')+1);
         Gson gson = new Gson();
         Type delaysType = new TypeToken<List<Delay>>(){}.getType();

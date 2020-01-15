@@ -3,9 +3,8 @@ package com.example.lasthope;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.location.Location;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -16,40 +15,32 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.AppCompatImageButton;
 
-import com.example.lasthope.model.Delay;
 import com.example.lasthope.model.ListData;
-import com.example.lasthope.model.Stop;
-import com.example.lasthope.model.Vehicle;
+import com.example.lasthope.util.Constants;
 import com.example.lasthope.util.CustomAdapter;
-//import com.example.lasthope.util.GPSTracker;
+import com.example.lasthope.util.GUIRefresher;
 import com.example.lasthope.util.JSONDeserializer;
 import com.example.lasthope.util.JSONReader;
 import com.example.lasthope.util.Mathematics;
-import com.google.android.material.snackbar.Snackbar;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    public Stop currentStop;
-    public List<Delay> delays;
-    public Vehicle trackedVehicle;
-
-    Location currLocation;
+    GUIRefresher gui;
 
     Toolbar toolbar;
     AppCompatTextView stopTextView;
     SwitchCompat themeSwitch;
     AppCompatImageButton activityButton;
 
+
     ListView listView;
+    ListData dataModel;
     ArrayList<ListData> dataModels;
     private static CustomAdapter adapter;
-
-    //GPSTracker gps;
 
     JSONReader reader;
     JSONDeserializer deserializer;
@@ -57,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getIntent().getBooleanExtra(new Constants().getSWITCH_STATE(),false)) {setTheme(R.style.AppThemeD);}
         setContentView(R.layout.activity_main);
         AndroidThreeTen.init(this);
+
+        gui = new GUIRefresher();
 
         setSupportActionBar(toolbar);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -83,28 +77,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         stopTextView.setText("Przystanek");
-        themeSwitch.setChecked(true);
 
         activityButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), TicketMashineActivity.class));
+
+                startTicketMashineActivity();
+
             }
         });
 
+        themeSwitch.setChecked(getIntent().getBooleanExtra(new Constants().getSWITCH_STATE(), false));
+        gui.theme(getApplicationContext(), themeSwitch.isChecked());
         themeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-                }
-                else {
-
-                }
-                //setTheme();
+                startMainActivity();
             }
         });
 
-        reader = new JSONReader();
+        reader = new JSONReader(getApplicationContext());
         deserializer = new JSONDeserializer();
 
         ListView listView = (ListView) findViewById(R.id.list);
@@ -115,9 +106,9 @@ public class MainActivity extends AppCompatActivity {
 
         Mathematics mat = new Mathematics();
 
-        dataModels.add(new ListData("227", "Wrzszcz", "3minuty", 22));
+        dataModels.add(new ListData("227", "Wrzeszcz", "3minuty", 11));
         dataModels.add(new ListData("111", "Pirwsz", "7minut", 22));
-        dataModels.add(new ListData("99", "AlaMaKota", "12minut", 33));
+        dataModels.add(new ListData("991", "AlaMaKota", "12minut", 33));
 
         adapter= new CustomAdapter(dataModels,getApplicationContext());
 
@@ -126,18 +117,47 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ListData dataModel= dataModels.get(position);
+                dataModel= dataModels.get(position);
 
-                startActivity(new Intent(getApplicationContext(), VehicleTrackerActivity.class));
+                startVehicleTrackerActivity();
 
-                Snackbar.make(view, Integer.toString(dataModel.getVehicleCode()), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
+//                Snackbar.make(view, Integer.toString(dataModel.getVehicleCode()), Snackbar.LENGTH_LONG)
+//                        .setAction("No action", null).show();
             }
         });
 
 
     }
 
+    private void startTicketMashineActivity() {
+        Intent intentTMA = new Intent(this, TicketMashineActivity.class);
+
+        intentTMA.putExtra(new Constants().getSWITCH_STATE(), themeSwitch.isChecked());
+
+        startActivity(intentTMA);
+    }
+
+    public void startVehicleTrackerActivity() {
+        Intent intentVTA = new Intent(this, VehicleTrackerActivity.class);
+
+        intentVTA.putExtra(new Constants().getSWITCH_STATE(), themeSwitch.isChecked());
+        intentVTA.putExtra(new Constants().getCURRENT_STOP_NAME(), stopTextView.getText());
+        intentVTA.putExtra(new Constants().getVEHICLE_CODE(), dataModel.getVehicleCode());
+
+        startActivity(intentVTA);
+    }
+
+    private void startMainActivity() {
+        Intent intentMA = new Intent(this, MainActivity.class);
+        intentMA.putExtra(new Constants().getSWITCH_STATE(), themeSwitch.isChecked());
+        startActivity(intentMA);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        this.finishAffinity();
+    }
 
 
 }

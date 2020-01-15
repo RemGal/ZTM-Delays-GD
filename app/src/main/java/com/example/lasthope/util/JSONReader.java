@@ -16,9 +16,10 @@ import java.net.URL;
 
 public class JSONReader {
 
-    public JSONReader() {
+    Context mContext;
 
-    }
+    public JSONReader(Context context) { this.mContext = context;}
+
 //NIE DZIALA
     public String readJSONfromUrl(String link) {
         try {
@@ -47,9 +48,9 @@ public class JSONReader {
         }
     }
 
-    public String readJSONfromTextfile(Context ctx, int resId)
+    public String readJSONfromTextfile(int resId)
     {
-        InputStream inputStream = ctx.getResources().openRawResource(resId);
+        InputStream inputStream = mContext.getResources().openRawResource(resId);
         BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
         StringBuilder sb = new StringBuilder();
