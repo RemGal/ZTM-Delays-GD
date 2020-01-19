@@ -28,7 +28,7 @@ public class JSONDeserializer {
         List<Vehicle> vehicles = gson.fromJson(json, vehicleType);
         int indexOfVehicle = 0;
         for (int i = 0; i < vehicles.size(); i++) {
-            if (vehicleNumber == Integer.valueOf(vehicles.get(i).getVehicleCode())) { indexOfVehicle = i; break;}
+            if (vehicleNumber == Integer.parseInt(vehicles.get(i).getVehicleCode())) { indexOfVehicle = i; break;}
         }
         return vehicles.get(indexOfVehicle);
     }

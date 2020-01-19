@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,7 +22,7 @@ public class JSONReader {
 //NIE DZIALA
     public String readJSONfromUrl(String link) {
         try {
-            URL url = new URL("http://www.android.com/");
+            URL url = new URL(link);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             BufferedReader buffreader = new BufferedReader(new InputStreamReader(in));
@@ -34,9 +33,6 @@ public class JSONReader {
                 sb.append('\n');
             }
             String text = sb.toString();
-            if (text.charAt(0) == '{') {
-                text = text.substring(text.indexOf('['), text.indexOf(']') + 1);
-            }
             urlConnection.disconnect();
             return text;
         } catch (MalformedURLException e) {
@@ -60,9 +56,6 @@ public class JSONReader {
                 sb.append('\n');
             }
             String text = sb.toString();
-            if (text.charAt(0) == '{') {
-                text = text.substring(text.indexOf('['), text.indexOf(']')+1);
-            }
             return text;
         } catch (IOException e) {
             return "";

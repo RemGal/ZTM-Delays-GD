@@ -6,27 +6,27 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 
 import com.example.lasthope.util.Constants;
-import com.example.lasthope.util.GUIRefresher;
 
-import java.util.concurrent.Callable;
+import org.osmdroid.api.IMapController;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
 
 public class TicketMashineActivity extends AppCompatActivity {
 
-    GUIRefresher gui;
+
+    MapView map;
 
     Toolbar toolbar;
     AppCompatTextView stopTextView;
     SwitchCompat themeSwitch;
     AppCompatImageButton activityButton;
-
-    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,6 @@ public class TicketMashineActivity extends AppCompatActivity {
         if (getIntent().getBooleanExtra(new Constants().getSWITCH_STATE(),false)) {setTheme(R.style.AppThemeD);}
         setContentView(R.layout.activity_ticket_mashine);
 
-        gui = new GUIRefresher();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,12 +55,19 @@ public class TicketMashineActivity extends AppCompatActivity {
         });
 
         themeSwitch.setChecked(getIntent().getBooleanExtra(new Constants().getSWITCH_STATE(), false));
-        gui.theme(getApplicationContext(),themeSwitch.isChecked());
         themeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 startTicketMashineActivity();
             }
         });
+
+        map = (MapView) findViewById(R.id.mapView);
+        IMapController mapController = map.getController();
+        mapController.setZoom(9.5);
+        GeoPoint startPoint = new GeoPoint(getIntent().getFloatExtra(new Constants().getCURRENT_LOCATION_LAT(), 0), getIntent().getFloatExtra(new Constants().getCURRENT_LOCATION_LON(), 0));
+        mapController.setCenter(startPoint);
+        map.setMultiTouchControls(true);
+        map.setTileSource(TileSourceFactory.MAPNIK);
 
 
 
