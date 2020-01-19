@@ -69,8 +69,6 @@ public class TicketMashineActivity extends AppCompatActivity {
         map.setMultiTouchControls(true);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
-
-
     }
 
     @Override
