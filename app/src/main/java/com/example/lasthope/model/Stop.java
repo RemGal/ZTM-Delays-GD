@@ -8,8 +8,8 @@ public class Stop {
     private String stopDesc;
 //        String subName;
 //        String date;
-    private double stopLat;
-    private double stopLon;
+    private float stopLat;
+    private float stopLon;
 //        boolean zoneId;
 //        boolean zoneName;
 //        String stopUrl;
@@ -26,17 +26,17 @@ public class Stop {
 
     public void setStopId(int stopId) { this.stopId = stopId; }
     public void setStopDesc(String stopDesc) { this.stopDesc = stopDesc; }
-    public void setStopLat(double stopLat) { this.stopLat = stopLat; }
-    public void setStopLon(double stopLon) { this.stopLon = stopLon; }
+    public void setStopLat(float stopLat) { this.stopLat = stopLat; }
+    public void setStopLon(float stopLon) { this.stopLon = stopLon; }
 
     public int getStopId() { return stopId; }
     public String getStopDesc() {
         return stopDesc;
     }
-    public double getStopLat() {
+    public float getStopLat() {
         return stopLat;
     }
-    public double getStopLon() {
+    public float getStopLon() {
         return stopLon;
     }
 }

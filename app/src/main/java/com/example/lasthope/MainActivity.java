@@ -137,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
     private void startTicketMashineActivity() {
         Intent intentTMA = new Intent(this, TicketMashineActivity.class);
 
-        intentTMA.putExtra(new Constants().getCURRENT_LOCATION_LAT(), 54.39141);
-        intentTMA.putExtra(new Constants().getCURRENT_LOCATION_LON(), 18.59584);
+        intentTMA.putExtra(new Constants().getCURRENT_LOCATION_LAT(), 54.39141f);
+        intentTMA.putExtra(new Constants().getCURRENT_LOCATION_LON(), 18.59584f);
         intentTMA.putExtra(new Constants().getSWITCH_STATE(), themeSwitch.isChecked());
 
         startActivity(intentTMA);
@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
 
         intentVTA.putExtra(new Constants().getSWITCH_STATE(), themeSwitch.isChecked());
         intentVTA.putExtra(new Constants().getCURRENT_STOP_NAME(), stopTextView.getText());
+        intentVTA.putExtra(new Constants().getCURRENT_LOCATION_LAT(), currentStop.getStopLat());
+        intentVTA.putExtra(new Constants().getCURRENT_LOCATION_LON(), currentStop.getStopLon());
         intentVTA.putExtra(new Constants().getVEHICLE_CODE(), dataModel.getVehicleCode());
 
         startActivity(intentVTA);
