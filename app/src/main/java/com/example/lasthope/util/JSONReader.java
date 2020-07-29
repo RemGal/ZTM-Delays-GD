@@ -19,30 +19,31 @@ public class JSONReader {
 
     public JSONReader(Context context) { this.mContext = context;}
 
-//NIE DZIALA
-    public String readJSONfromUrl(String link) {
-        try {
-            URL url = new URL(link);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader buffreader = new BufferedReader(new InputStreamReader(in));
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = buffreader.readLine()) != null) {
-                sb.append(line);
-                sb.append('\n');
-            }
-            String text = sb.toString();
-            urlConnection.disconnect();
-            return text;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return "";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
+
+    //NIE DZIALA
+//    public String readJSONfromUrl(String link) {
+//        try {
+//            URL url = new URL(link);
+//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+//            BufferedReader buffreader = new BufferedReader(new InputStreamReader(in));
+//            String line;
+//            StringBuilder sb = new StringBuilder();
+//            while ((line = buffreader.readLine()) != null) {
+//                sb.append(line);
+//                sb.append('\n');
+//            }
+//            String text = sb.toString();
+//            urlConnection.disconnect();
+//            return text;
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//            return "";
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return "";
+//        }
+//    }
 
     public String readJSONfromTextfile(int resId)
     {

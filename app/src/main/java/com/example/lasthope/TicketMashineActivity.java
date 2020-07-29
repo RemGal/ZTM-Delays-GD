@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
 import com.example.lasthope.util.Constants;
 import com.example.lasthope.util.MapOverlayPrinter;
 
