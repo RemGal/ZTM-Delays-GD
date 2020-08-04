@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lasthope.model.Delay;
 import com.example.lasthope.model.ListData;
@@ -100,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
         stopTextView.setText(currentStop.getStopDesc());
 
         delays = deserializer.getDelays( "{\"lastUpdate\":\"2020-01-19 14:25:03\",\"delay\":[{\"id\":\"T122R127\",\"delayInSeconds\":95,\"estimatedTime\":\"14:30\",\"headsign\":\"Oliwa PKP\",\"routeId\":127,\"tripId\":122,\"status\":\"REALTIME\",\"theoreticalTime\":\"14:29\",\"timestamp\":\"14:25:03\",\"trip\":638956,\"vehicleCode\":2522,\"vehicleId\":188},{\"id\":\"T12R227\",\"delayInSeconds\":282,\"estimatedTime\":\"14:37\",\"headsign\":\"Jelitkowo\",\"routeId\":227,\"tripId\":12,\"status\":\"REALTIME\",\"theoreticalTime\":\"14:33\",\"timestamp\":\"14:25:00\",\"trip\":641224,\"vehicleCode\":2642,\"vehicleId\":460},{\"id\":\"T12R158\",\"delayInSeconds\":39,\"estimatedTime\":\"14:40\",\"headsign\":\"Stogi Plaża\",\"routeId\":158,\"tripId\":12,\"status\":\"REALTIME\",\"theoreticalTime\":\"14:40\",\"timestamp\":\"14:25:02\",\"trip\":644240,\"vehicleCode\":2800,\"vehicleId\":177},{\"id\":\"T122R127\",\"delayInSeconds\":-162,\"estimatedTime\":\"14:46\",\"headsign\":\"Oliwa PKP\",\"routeId\":127,\"tripId\":122,\"status\":\"REALTIME\",\"theoreticalTime\":\"14:49\",\"timestamp\":\"14:25:02\",\"trip\":640254,\"vehicleCode\":2536,\"vehicleId\":202}]}");
-        ListView listView = (ListView) findViewById(R.id.list);
+        //ListView listView = (ListView) findViewById(R.id.list);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         dataModels= new ArrayList<>();
         for (int i =0; i < delays.size(); i++) {
             dataModels.add(new ListData(Integer.toString(delays.get(i).getRouteId()), delays.get(i).getHeadsign(), delays.get(i).getEstimatedTime(), delays.get(i).getVehicleCode()));
@@ -124,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void startTicketMashineActivity() {
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intentTMA);
     }
 
-    private void startVehicleTrackerActivity() {
+    public void startVehicleTrackerActivity() {
         Intent intentVTA = new Intent(this, VehicleTrackerActivity.class);
 
         intentVTA.putExtra(new Constants().getSWITCH_STATE(), themeSwitch.isChecked());

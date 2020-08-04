@@ -1,38 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:id="@+id/parent_layout"
+    >
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:paddingLeft="24dp"
         android:text="Linia"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/black"/>
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/direction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:text="Kierunek"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/delay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:paddingRight="24dp"
         android:text="Xminutes"
-        android:textColor="@android:color/white" />
-
-
+        android:textColor="@android:color/black" />
 
 
 </RelativeLayout>
